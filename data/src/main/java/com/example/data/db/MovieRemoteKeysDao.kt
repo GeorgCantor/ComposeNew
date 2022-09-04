@@ -8,7 +8,6 @@ import com.example.domain.model.MovieRemoteKeys
 
 @Dao
 interface MovieRemoteKeysDao {
-
     @Query("SELECT * FROM movie_remote_keys WHERE id = :movieId")
     suspend fun getMovieRemoteKeys(movieId: Int): MovieRemoteKeys?
 
