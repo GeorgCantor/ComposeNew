@@ -15,7 +15,6 @@ class MovieRemoteMediator(
     private val movieApi: MovieApi,
     private val movieDatabase: MovieDatabase
 ) : RemoteMediator<Int, Movie>() {
-
     private val movieDao = movieDatabase.movieDao()
     private val movieRemoteKeysDao = movieDatabase.movieRemoteKeysDao()
 
@@ -64,7 +63,6 @@ class MovieRemoteMediator(
                         movieDao.addMovies(movies = movieList.movies)
                     }
                 }
-
             }
             MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (exception: Exception) {
