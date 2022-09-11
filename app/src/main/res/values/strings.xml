@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Compose</string>
+    <string name="toast_error">Something went wrong</string>
+    <string name="details">Details</string>
 </resources>
