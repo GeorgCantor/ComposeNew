@@ -18,6 +18,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.rememberImagePainter
 import coil.size.Scale
+import com.example.compose.BuildConfig
 import com.example.compose.presentation.components.RatingComponent
 import com.example.compose.presentation.navigation.Screen
 import com.example.compose.ui.theme.ItemBackgroundColor

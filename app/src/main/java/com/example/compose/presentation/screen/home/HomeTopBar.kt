@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import com.example.compose.R
 import com.example.compose.ui.theme.AppContentColor
 import com.example.compose.ui.theme.AppThemeColor
 

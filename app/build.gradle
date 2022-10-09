@@ -75,6 +75,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
 
+    def okhttpVersion = '5.0.0-alpha.6'
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
     implementation 'com.google.code.gson:gson:2.8.9'
 
     implementation("io.coil-kt:coil-compose:1.4.0")
