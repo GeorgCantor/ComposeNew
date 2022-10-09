@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.compose.presentation.screen.details.MovieDetailsScreen
 import com.example.compose.presentation.screen.home.HomeScreen
 
 @Composable
