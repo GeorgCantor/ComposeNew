@@ -30,7 +30,7 @@ fun MovieDetailsContent(movie: Movie) {
         Column(modifier = Modifier.fillMaxWidth().verticalScroll(scrollState)) {
             Image(
                 painter = rememberImagePainter(
-                    data = BuildConfig.POSTER_URL + movie.posterPath,
+                    data = movie.posterPath,
                     builder = {
                         crossfade(true)
                         scale(Scale.FIT)

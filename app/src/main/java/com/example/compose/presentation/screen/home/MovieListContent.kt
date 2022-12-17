@@ -18,7 +18,6 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.rememberImagePainter
 import coil.size.Scale
-import com.example.compose.BuildConfig
 import com.example.compose.presentation.components.RatingComponent
 import com.example.compose.presentation.navigation.Screen
 import com.example.compose.ui.theme.ItemBackgroundColor
@@ -54,7 +53,7 @@ fun MovieItem(movie: Movie, navController: NavHostController) {
                 Image(
                     modifier = Modifier.padding(end = 4.dp,).width(120.dp),
                     painter = rememberImagePainter(
-                        data = BuildConfig.POSTER_URL + movie.posterPath, builder = {
+                        data = movie.posterPath, builder = {
                             crossfade(true)
                             scale(Scale.FILL)
                         }),
