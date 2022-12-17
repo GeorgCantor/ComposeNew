@@ -34,7 +34,7 @@ class MovieRemoteMediator(
                     nextPage
                 }
             }
-            val response = movieApi.getPopularMovies(apiKey = BuildConfig.API_KEY, page = page)
+            val response = movieApi.getNews(apiKey = BuildConfig.API_KEY, page = page)
             var endOfPaginationReached = false
 
             if (response.isSuccessful) {
@@ -52,16 +52,25 @@ class MovieRemoteMediator(
                             nextPage = pageNumber + 1
                             prevPage = if (pageNumber <= 1) null else pageNumber - 1
                         }
-                        val keys = movieList.movies.map { movie ->
+                        val keys = movieList.articles.map { movie ->
                             MovieRemoteKeys(
-                                id = movie.movieId,
+                                id = movie.id.toInt(),
                                 prevPage = prevPage,
                                 nextPage = nextPage,
                                 lastUpdated = System.currentTimeMillis()
                             )
                         }
                         movieRemoteKeysDao.addAllMovieRemoteKeys(movieRemoteKeys = keys)
-                        movieDao.addMovies(movies = movieList.movies)
+                        movieDao.addMovies(movies = movieList.articles.map {
+                            Movie(
+                                movieId = it.id.toInt(),
+                                overview = it.description,
+                                posterPath = it.urlToImage,
+                                title = it.title,
+                                rating = "5",
+                                releaseDate = it.publishedAt
+                            )
+                        })
                     }
                 }
             }
