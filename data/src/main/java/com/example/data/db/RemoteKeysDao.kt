@@ -7,9 +7,9 @@ import androidx.room.Query
 import com.example.domain.model.NewsRemoteKeys
 
 @Dao
-interface MovieRemoteKeysDao {
+interface RemoteKeysDao {
     @Query("SELECT * FROM news_remote_keys WHERE id = :id")
-    suspend fun getMovieRemoteKeys(id: Int): NewsRemoteKeys?
+    suspend fun getRemoteKeys(id: Int): NewsRemoteKeys?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addAllMovieRemoteKeys(newsRemoteKeys: List<NewsRemoteKeys>)

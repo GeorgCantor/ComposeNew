@@ -1,6 +1,6 @@
 package com.example.compose.di
 
-import com.example.data.db.MovieDao
+import com.example.data.db.NewsDao
 import com.example.data.repository.datasource.MovieLocalDataSource
 import com.example.data.repository.datasourceimpl.MovieLocalDataSourceImpl
 import dagger.Module
@@ -12,5 +12,5 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object LocalDataModule {
     @Provides
-    fun provideLocalDataSource(movieDao: MovieDao): MovieLocalDataSource = MovieLocalDataSourceImpl(movieDao)
+    fun provideLocalDataSource(newsDao: NewsDao): MovieLocalDataSource = MovieLocalDataSourceImpl(newsDao)
 }

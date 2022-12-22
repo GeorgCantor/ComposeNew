@@ -10,7 +10,7 @@ import com.example.domain.model.NewsRemoteKeys
     version = 2,
     exportSchema = false
 )
-abstract class MovieDatabase : RoomDatabase() {
-    abstract fun movieDao(): MovieDao
-    abstract fun movieRemoteKeysDao(): MovieRemoteKeysDao
+abstract class NewsDatabase : RoomDatabase() {
+    abstract fun newsDao(): NewsDao
+    abstract fun remoteKeysDao(): RemoteKeysDao
 }

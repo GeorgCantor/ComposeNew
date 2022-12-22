@@ -7,17 +7,17 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.data.BuildConfig
 import com.example.data.api.NewsApi
-import com.example.data.db.MovieDatabase
+import com.example.data.db.NewsDatabase
 import com.example.domain.model.New
 import com.example.domain.model.NewsRemoteKeys
 
 @OptIn(ExperimentalPagingApi::class)
 class MovieRemoteMediator(
     private val newsApi: NewsApi,
-    private val movieDatabase: MovieDatabase
+    private val newsDatabase: NewsDatabase
 ) : RemoteMediator<Int, New>() {
-    private val movieDao = movieDatabase.movieDao()
-    private val movieRemoteKeysDao = movieDatabase.movieRemoteKeysDao()
+    private val newsDao = newsDatabase.newsDao()
+    private val remoteKeysDao = newsDatabase.remoteKeysDao()
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, New>): MediatorResult {
         return try {
@@ -41,10 +41,10 @@ class MovieRemoteMediator(
                 val movieList = response.body()
                 endOfPaginationReached = movieList == null
                 movieList?.let {
-                    movieDatabase.withTransaction {
+                    newsDatabase.withTransaction {
                         if (loadType == LoadType.REFRESH) {
-                            movieDao.deleteAllMovies()
-                            movieRemoteKeysDao.deleteAllMovieRemoteKeys()
+                            newsDao.deleteAllNews()
+                            remoteKeysDao.deleteAllMovieRemoteKeys()
                         }
                         var prevPage: Int?
                         var nextPage: Int
@@ -60,8 +60,8 @@ class MovieRemoteMediator(
                                 lastUpdated = System.currentTimeMillis()
                             )
                         }
-                        movieRemoteKeysDao.addAllMovieRemoteKeys(newsRemoteKeys = keys)
-                        movieDao.addMovies(aNews = movieList.articles.map {
+                        remoteKeysDao.addAllMovieRemoteKeys(newsRemoteKeys = keys)
+                        newsDao.addNews(aNews = movieList.articles.map {
                             New(
                                 id = it.id.toInt(),
                                 overview = it.description,
@@ -80,11 +80,11 @@ class MovieRemoteMediator(
     }
 
     private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, New>) =
-        state.anchorPosition?.let { state.closestItemToPosition(it)?.id?.let { movieRemoteKeysDao.getMovieRemoteKeys(it) } }
+        state.anchorPosition?.let { state.closestItemToPosition(it)?.id?.let { remoteKeysDao.getRemoteKeys(it) } }
 
     private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, New>) =
-        state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()?.let { movieRemoteKeysDao.getMovieRemoteKeys(it.id) }
+        state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()?.let { remoteKeysDao.getRemoteKeys(it.id) }
 
     private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, New>)=
-        state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()?.let { movieRemoteKeysDao.getMovieRemoteKeys(it.id) }
+        state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()?.let { remoteKeysDao.getRemoteKeys(it.id) }
 }

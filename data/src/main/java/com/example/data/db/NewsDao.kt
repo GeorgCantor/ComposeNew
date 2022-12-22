@@ -9,16 +9,16 @@ import com.example.domain.model.New
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface MovieDao {
+interface NewsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addMovies(aNews: List<New>)
+    suspend fun addNews(aNews: List<New>)
 
     @Query("SELECT * FROM new")
-    fun getAllMovies(): PagingSource<Int, New>
+    fun getAllNews(): PagingSource<Int, New>
 
     @Query("SELECT * FROM new WHERE id = :id")
-    fun getMovie(id: Int): Flow<New>
+    fun getNew(id: Int): Flow<New>
 
     @Query("DELETE FROM new")
-    suspend fun deleteAllMovies()
+    suspend fun deleteAllNews()
 }
