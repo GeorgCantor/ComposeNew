@@ -5,5 +5,5 @@ import java.io.Serializable
 
 data class MovieList(
     @SerializedName("page") val page: Int = 1,
-    @SerializedName("results") val movies: List<Movie>,
+    @SerializedName("results") val aNews: List<New>,
 ) : Serializable

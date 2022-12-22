@@ -21,20 +21,20 @@ import coil.size.Scale
 import com.example.compose.presentation.components.RatingComponent
 import com.example.compose.presentation.navigation.Screen
 import com.example.compose.ui.theme.ItemBackgroundColor
-import com.example.domain.model.Movie
+import com.example.domain.model.New
 
 @Composable
-fun MovieListContent(allMovies: LazyPagingItems<Movie>, navController: NavHostController) {
+fun MovieListContent(allMovies: LazyPagingItems<New>, navController: NavHostController) {
     LazyColumn(contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)) {
         items(
             items = allMovies,
             key = { it.pk }
-        ) { movie -> movie?.let { MovieItem(movie = movie, navController = navController) } }
+        ) { movie -> movie?.let { MovieItem(aNew = movie, navController = navController) } }
     }
 }
 
 @Composable
-fun MovieItem(movie: Movie, navController: NavHostController) {
+fun MovieItem(aNew: New, navController: NavHostController) {
     Card(
         modifier = Modifier.padding(top = 8.dp).height(180.dp).fillMaxWidth(),
         elevation = 4.dp,
@@ -45,15 +45,15 @@ fun MovieItem(movie: Movie, navController: NavHostController) {
                 .height(IntrinsicSize.Max)
                 .fillMaxWidth()
                 .clickable {
-                    navController.navigate(route = Screen.MovieDetails.passMovieId(movie.movieId.toString()))
+                    navController.navigate(route = Screen.MovieDetails.passMovieId(aNew.id.toString()))
                 },
             verticalAlignment = Alignment.CenterVertically
         ) {
-            movie.posterPath?.let {
+            aNew.posterPath?.let {
                 Image(
                     modifier = Modifier.padding(end = 4.dp,).width(120.dp),
                     painter = rememberImagePainter(
-                        data = movie.posterPath, builder = {
+                        data = aNew.posterPath, builder = {
                             crossfade(true)
                             scale(Scale.FILL)
                         }),
@@ -62,9 +62,9 @@ fun MovieItem(movie: Movie, navController: NavHostController) {
                 )
             }
             Column(Modifier.height(IntrinsicSize.Max).padding(end = 2.dp)) {
-                movie.title?.let { Text(text = it, style = MaterialTheme.typography.body1) }
+                aNew.title?.let { Text(text = it, style = MaterialTheme.typography.body1) }
                 Spacer(modifier = Modifier.height(4.dp))
-                movie.overview?.let {
+                aNew.overview?.let {
                     Text(
                         text = it,
                         style = MaterialTheme.typography.body2,
@@ -73,7 +73,7 @@ fun MovieItem(movie: Movie, navController: NavHostController) {
                     )
                 }
                 Spacer(modifier = Modifier.height(8.dp))
-                movie.rating?.let { RatingComponent(rating = it) }
+                RatingComponent(rating = "5")
             }
         }
     }

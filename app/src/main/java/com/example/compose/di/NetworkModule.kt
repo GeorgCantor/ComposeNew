@@ -1,7 +1,7 @@
 package com.example.compose.di
 
 import com.example.compose.BuildConfig
-import com.example.data.api.MovieApi
+import com.example.data.api.NewsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,5 +34,5 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMovieApi(retrofit: Retrofit) = retrofit.create(MovieApi::class.java)
+    fun provideNewsApi(retrofit: Retrofit) = retrofit.create(NewsApi::class.java)
 }

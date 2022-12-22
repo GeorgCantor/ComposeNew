@@ -14,14 +14,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import coil.size.Scale
-import com.example.compose.BuildConfig
 import com.example.compose.presentation.components.RatingComponent
 import com.example.compose.presentation.components.ReleaseDateComponent
 import com.example.compose.ui.theme.AppThemeColor
-import com.example.domain.model.Movie
+import com.example.domain.model.New
 
 @Composable
-fun MovieDetailsContent(movie: Movie) {
+fun MovieDetailsContent(aNew: New) {
     val scrollState = rememberScrollState()
     Card(
         elevation = 0.dp,
@@ -30,7 +29,7 @@ fun MovieDetailsContent(movie: Movie) {
         Column(modifier = Modifier.fillMaxWidth().verticalScroll(scrollState)) {
             Image(
                 painter = rememberImagePainter(
-                    data = movie.posterPath,
+                    data = aNew.posterPath,
                     builder = {
                         crossfade(true)
                         scale(Scale.FIT)
@@ -42,7 +41,7 @@ fun MovieDetailsContent(movie: Movie) {
             )
             Column(modifier = Modifier.padding(8.dp)) {
                 Spacer(modifier = Modifier.height(16.dp))
-                movie.title?.let {
+                aNew.title?.let {
                     Text(
                         text = it,
                         style = MaterialTheme.typography.h5,
@@ -50,11 +49,11 @@ fun MovieDetailsContent(movie: Movie) {
                     )
                 }
                 Spacer(modifier = Modifier.height(8.dp))
-                movie.releaseDate?.let { ReleaseDateComponent(releaseDate = it) }
+                aNew.releaseDate?.let { ReleaseDateComponent(releaseDate = it) }
                 Spacer(modifier = Modifier.height(8.dp))
-                movie.rating?.let { RatingComponent(rating = it) }
+                RatingComponent(rating = "5")
                 Spacer(modifier = Modifier.height(16.dp))
-                movie.overview?.let { Text(text = it, style = MaterialTheme.typography.body2) }
+                aNew.overview?.let { Text(text = it, style = MaterialTheme.typography.body2) }
             }
         }
     }

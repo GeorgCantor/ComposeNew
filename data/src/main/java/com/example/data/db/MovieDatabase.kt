@@ -2,12 +2,12 @@ package com.example.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.domain.model.Movie
-import com.example.domain.model.MovieRemoteKeys
+import com.example.domain.model.New
+import com.example.domain.model.NewsRemoteKeys
 
 @Database(
-    entities = [Movie::class, MovieRemoteKeys::class],
-    version = 1,
+    entities = [New::class, NewsRemoteKeys::class],
+    version = 2,
     exportSchema = false
 )
 abstract class MovieDatabase : RoomDatabase() {

@@ -17,7 +17,7 @@ fun MovieDetailsScreen(
     viewModel: MovieDetailsViewModel = hiltViewModel(),
 ) {
     viewModel.getMovieDetails(movieId = movieId.toInt())
-    val movie by viewModel.selectedMovie.collectAsState()
+    val movie by viewModel.selectedNew.collectAsState()
     Scaffold(
         topBar = { MovieDetailsTopBar(navController) },
         contentColor = MaterialTheme.colors.AppContentColor,
