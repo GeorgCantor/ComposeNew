@@ -4,6 +4,6 @@ import androidx.paging.PagingData
 import com.example.domain.model.New
 import kotlinx.coroutines.flow.Flow
 
-interface MovieRemoteDataSource {
-    fun getPopularMovies(): Flow<PagingData<New>>
+interface RemoteDataSource {
+    fun getNews(): Flow<PagingData<New>>
 }

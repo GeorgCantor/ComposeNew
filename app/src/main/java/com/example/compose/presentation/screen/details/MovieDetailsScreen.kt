@@ -16,7 +16,7 @@ fun MovieDetailsScreen(
     navController: NavController,
     viewModel: MovieDetailsViewModel = hiltViewModel(),
 ) {
-    viewModel.getMovieDetails(movieId = movieId.toInt())
+    viewModel.getNewsDetails(id = movieId.toInt())
     val movie by viewModel.selectedNew.collectAsState()
     Scaffold(
         topBar = { MovieDetailsTopBar(navController) },

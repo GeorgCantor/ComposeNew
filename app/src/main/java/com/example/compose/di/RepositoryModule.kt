@@ -1,9 +1,9 @@
 package com.example.compose.di
 
-import com.example.data.repository.MovieRepositoryImpl
-import com.example.data.repository.datasource.MovieLocalDataSource
-import com.example.data.repository.datasource.MovieRemoteDataSource
-import com.example.domain.repository.MovieRepository
+import com.example.data.repository.NewsRepositoryImpl
+import com.example.data.repository.datasource.LocalDataSource
+import com.example.data.repository.datasource.RemoteDataSource
+import com.example.domain.repository.NewsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,8 +13,8 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
     @Provides
-    fun provideMoviesRepository(
-        remoteDataSource: MovieRemoteDataSource,
-        localDataSource: MovieLocalDataSource
-    ): MovieRepository = MovieRepositoryImpl(remoteDataSource, localDataSource)
+    fun provideNewsRepository(
+        remoteDataSource: RemoteDataSource,
+        localDataSource: LocalDataSource
+    ): NewsRepository = NewsRepositoryImpl(remoteDataSource, localDataSource)
 }

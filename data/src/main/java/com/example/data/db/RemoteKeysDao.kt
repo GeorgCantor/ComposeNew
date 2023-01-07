@@ -12,8 +12,8 @@ interface RemoteKeysDao {
     suspend fun getRemoteKeys(id: Int): NewsRemoteKeys?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addAllMovieRemoteKeys(newsRemoteKeys: List<NewsRemoteKeys>)
+    suspend fun addAllRemoteKeys(newsRemoteKeys: List<NewsRemoteKeys>)
 
     @Query("DELETE FROM news_remote_keys")
-    suspend fun deleteAllMovieRemoteKeys()
+    suspend fun deleteAllRemoteKeys()
 }

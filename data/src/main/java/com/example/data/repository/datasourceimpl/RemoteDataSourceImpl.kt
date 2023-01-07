@@ -6,21 +6,21 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.data.api.NewsApi
 import com.example.data.db.NewsDatabase
-import com.example.data.paging.MovieRemoteMediator
-import com.example.data.repository.datasource.MovieRemoteDataSource
+import com.example.data.paging.NewsRemoteMediator
+import com.example.data.repository.datasource.RemoteDataSource
 import com.example.domain.model.New
 import kotlinx.coroutines.flow.Flow
 
-class MovieRemoteDataSourceImpl(
+class RemoteDataSourceImpl(
     private val api: NewsApi,
     private val db: NewsDatabase
-) : MovieRemoteDataSource {
+) : RemoteDataSource {
     private val dao = db.newsDao()
 
     @OptIn(ExperimentalPagingApi::class)
-    override fun getPopularMovies(): Flow<PagingData<New>> = Pager(
+    override fun getNews(): Flow<PagingData<New>> = Pager(
         config = PagingConfig(20),
-        remoteMediator = MovieRemoteMediator(api, db),
+        remoteMediator = NewsRemoteMediator(api, db),
         pagingSourceFactory = { dao.getAllNews() }
     ).flow
 }

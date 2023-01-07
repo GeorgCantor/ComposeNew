@@ -12,7 +12,7 @@ import com.example.domain.model.New
 import com.example.domain.model.NewsRemoteKeys
 
 @OptIn(ExperimentalPagingApi::class)
-class MovieRemoteMediator(
+class NewsRemoteMediator(
     private val newsApi: NewsApi,
     private val newsDatabase: NewsDatabase
 ) : RemoteMediator<Int, New>() {
@@ -38,21 +38,21 @@ class MovieRemoteMediator(
             var endOfPaginationReached = false
 
             if (response.isSuccessful) {
-                val movieList = response.body()
-                endOfPaginationReached = movieList == null
-                movieList?.let {
+                val news = response.body()
+                endOfPaginationReached = news == null
+                news?.let {
                     newsDatabase.withTransaction {
                         if (loadType == LoadType.REFRESH) {
                             newsDao.deleteAllNews()
-                            remoteKeysDao.deleteAllMovieRemoteKeys()
+                            remoteKeysDao.deleteAllRemoteKeys()
                         }
                         var prevPage: Int?
                         var nextPage: Int
-                        movieList.page.let { pageNumber ->
+                        news.page.let { pageNumber ->
                             nextPage = pageNumber + 1
                             prevPage = if (pageNumber <= 1) null else pageNumber - 1
                         }
-                        val keys = movieList.articles.map { movie ->
+                        val keys = news.articles.map { movie ->
                             NewsRemoteKeys(
                                 id = movie.id.toInt(),
                                 prevPage = prevPage,
@@ -60,8 +60,8 @@ class MovieRemoteMediator(
                                 lastUpdated = System.currentTimeMillis()
                             )
                         }
-                        remoteKeysDao.addAllMovieRemoteKeys(newsRemoteKeys = keys)
-                        newsDao.addNews(aNews = movieList.articles.map {
+                        remoteKeysDao.addAllRemoteKeys(newsRemoteKeys = keys)
+                        newsDao.addNews(aNews = news.articles.map {
                             New(
                                 id = it.id.toInt(),
                                 overview = it.description,
