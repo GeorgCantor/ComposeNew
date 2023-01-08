@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieDetailsViewModel @Inject constructor(
+class NewsDetailsViewModel @Inject constructor(
     private val newsUseCases: NewsUseCases
 ) : ViewModel() {
     private val _selectedNew: MutableStateFlow<New?> = MutableStateFlow(null)

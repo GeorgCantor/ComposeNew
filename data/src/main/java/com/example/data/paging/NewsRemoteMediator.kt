@@ -52,9 +52,9 @@ class NewsRemoteMediator(
                             nextPage = pageNumber + 1
                             prevPage = if (pageNumber <= 1) null else pageNumber - 1
                         }
-                        val keys = news.articles.map { movie ->
+                        val keys = news.articles.map { article ->
                             NewsRemoteKeys(
-                                id = movie.id.toInt(),
+                                id = article.id.toInt(),
                                 prevPage = prevPage,
                                 nextPage = nextPage,
                                 lastUpdated = System.currentTimeMillis()

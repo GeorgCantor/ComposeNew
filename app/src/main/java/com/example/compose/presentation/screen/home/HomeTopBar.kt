@@ -39,7 +39,7 @@ fun HomeTopBar() {
                 Icon(
                     imageVector = Icons.Default.Favorite,
                     contentDescription = "Favorite",
-                    tint = Color.Red
+                    tint = Color.Blue
                 )
             }
         }

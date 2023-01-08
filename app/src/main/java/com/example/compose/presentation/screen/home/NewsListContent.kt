@@ -24,17 +24,17 @@ import com.example.compose.ui.theme.ItemBackgroundColor
 import com.example.domain.model.New
 
 @Composable
-fun MovieListContent(allMovies: LazyPagingItems<New>, navController: NavHostController) {
+fun NewsListContent(allNews: LazyPagingItems<New>, navController: NavHostController) {
     LazyColumn(contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)) {
         items(
-            items = allMovies,
+            items = allNews,
             key = { it.pk }
-        ) { movie -> movie?.let { MovieItem(aNew = movie, navController = navController) } }
+        ) { new -> new?.let { NewsItem(aNew = new, navController = navController) } }
     }
 }
 
 @Composable
-fun MovieItem(aNew: New, navController: NavHostController) {
+fun NewsItem(aNew: New, navController: NavHostController) {
     Card(
         modifier = Modifier.padding(top = 8.dp).height(180.dp).fillMaxWidth(),
         elevation = 4.dp,
@@ -45,7 +45,7 @@ fun MovieItem(aNew: New, navController: NavHostController) {
                 .height(IntrinsicSize.Max)
                 .fillMaxWidth()
                 .clickable {
-                    navController.navigate(route = Screen.MovieDetails.passMovieId(aNew.id.toString()))
+                    navController.navigate(route = Screen.NewsDetails.passId(aNew.id.toString()))
                 },
             verticalAlignment = Alignment.CenterVertically
         ) {

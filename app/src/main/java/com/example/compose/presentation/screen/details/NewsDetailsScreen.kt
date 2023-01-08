@@ -11,17 +11,17 @@ import com.example.compose.ui.theme.AppContentColor
 import com.example.compose.ui.theme.AppThemeColor
 
 @Composable
-fun MovieDetailsScreen(
-    movieId: String,
+fun NewsDetailsScreen(
+    id: String,
     navController: NavController,
-    viewModel: MovieDetailsViewModel = hiltViewModel(),
+    viewModel: NewsDetailsViewModel = hiltViewModel(),
 ) {
-    viewModel.getNewsDetails(id = movieId.toInt())
-    val movie by viewModel.selectedNew.collectAsState()
+    viewModel.getNewsDetails(id = id.toInt())
+    val new by viewModel.selectedNew.collectAsState()
     Scaffold(
-        topBar = { MovieDetailsTopBar(navController) },
+        topBar = { NewsDetailsTopBar(navController) },
         contentColor = MaterialTheme.colors.AppContentColor,
         backgroundColor = MaterialTheme.colors.AppThemeColor,
-        content = { movie?.let { MovieDetailsContent(it) } }
+        content = { new?.let { NewsDetailsContent(it) } }
     )
 }

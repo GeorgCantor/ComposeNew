@@ -20,7 +20,7 @@ import com.example.compose.ui.theme.AppThemeColor
 import com.example.domain.model.New
 
 @Composable
-fun MovieDetailsContent(aNew: New) {
+fun NewsDetailsContent(aNew: New) {
     val scrollState = rememberScrollState()
     Card(
         elevation = 0.dp,

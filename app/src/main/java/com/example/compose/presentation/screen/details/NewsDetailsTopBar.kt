@@ -15,7 +15,7 @@ import com.example.compose.ui.theme.AppContentColor
 import com.example.compose.ui.theme.AppThemeColor
 
 @Composable
-fun MovieDetailsTopBar(navController: NavController) {
+fun NewsDetailsTopBar(navController: NavController) {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.AppThemeColor,
         navigationIcon = {

@@ -15,13 +15,13 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
     val systemUiController = rememberSystemUiController()
     val systemBarColor = MaterialTheme.colors.AppThemeColor
-    val allMovies = viewModel.getAllPopularMovies.collectAsLazyPagingItems()
+    val allNews = viewModel.getAllNews.collectAsLazyPagingItems()
 
     SideEffect { systemUiController.setStatusBarColor(color = systemBarColor) }
     Scaffold(
         backgroundColor = MaterialTheme.colors.AppThemeColor,
         contentColor = MaterialTheme.colors.AppContentColor,
         topBar = { HomeTopBar() },
-        content = { MovieListContent(allMovies = allMovies, navController = navController) }
+        content = { NewsListContent(allNews = allNews, navController = navController) }
     )
 }

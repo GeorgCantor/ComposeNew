@@ -6,7 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.compose.presentation.screen.details.MovieDetailsScreen
+import com.example.compose.presentation.screen.details.NewsDetailsScreen
 import com.example.compose.presentation.screen.home.HomeScreen
 
 @Composable
@@ -17,10 +17,10 @@ fun NavGraph(navController: NavHostController) {
     ) {
         composable(route = Screen.Home.route) { HomeScreen(navController = navController) }
         composable(
-            route = Screen.MovieDetails.route,
-            arguments = listOf(navArgument("movieId") { type = NavType.StringType })
+            route = Screen.NewsDetails.route,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) {
-            it.arguments?.getString("movieId")?.let { MovieDetailsScreen(it, navController) }
+            it.arguments?.getString("id")?.let { NewsDetailsScreen(it, navController) }
         }
     }
 }
