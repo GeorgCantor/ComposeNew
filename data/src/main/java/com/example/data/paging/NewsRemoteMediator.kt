@@ -54,7 +54,7 @@ class NewsRemoteMediator(
                         }
                         val keys = news.articles.map { article ->
                             NewsRemoteKeys(
-                                id = article.id.toInt(),
+                                id = article.publishedAt.filter { it.isDigit() }.drop(8).toIntOrNull() ?: 0,
                                 prevPage = prevPage,
                                 nextPage = nextPage,
                                 lastUpdated = System.currentTimeMillis()
@@ -63,7 +63,7 @@ class NewsRemoteMediator(
                         remoteKeysDao.addAllRemoteKeys(newsRemoteKeys = keys)
                         newsDao.addNews(aNews = news.articles.map {
                             New(
-                                id = it.id.toInt(),
+                                id = it.publishedAt.filter { it.isDigit() }.drop(8).toIntOrNull() ?: 0,
                                 overview = it.description,
                                 posterPath = it.urlToImage,
                                 title = it.title,
