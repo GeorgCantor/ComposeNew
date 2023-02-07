@@ -64,9 +64,9 @@ class NewsRemoteMediator(
                             )
                         }
                         remoteKeysDao.addAllRemoteKeys(newsRemoteKeys = keys)
+                        val to = SimpleDateFormat("dd.MM.yyyy HH:mm")
+                        val from = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
                         newsDao.addNews(aNews = news.articles.map {
-                            val to = SimpleDateFormat("dd.MM.yyyy HH:mm")
-                            val from = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
                             New(
                                 id = it.publishedAt.filter { it.isDigit() }.drop(8).toIntOrNull() ?: 0,
                                 overview = it.description,
