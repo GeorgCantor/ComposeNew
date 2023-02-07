@@ -1,5 +1,6 @@
 package com.example.data.paging
 
+import android.annotation.SuppressLint
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -10,6 +11,7 @@ import com.example.data.api.NewsApi
 import com.example.data.db.NewsDatabase
 import com.example.domain.model.New
 import com.example.domain.model.NewsRemoteKeys
+import java.text.SimpleDateFormat
 
 @OptIn(ExperimentalPagingApi::class)
 class NewsRemoteMediator(
@@ -19,6 +21,7 @@ class NewsRemoteMediator(
     private val newsDao = newsDatabase.newsDao()
     private val remoteKeysDao = newsDatabase.remoteKeysDao()
 
+    @SuppressLint("SimpleDateFormat")
     override suspend fun load(loadType: LoadType, state: PagingState<Int, New>): MediatorResult {
         return try {
             val page = when (loadType) {
@@ -62,12 +65,14 @@ class NewsRemoteMediator(
                         }
                         remoteKeysDao.addAllRemoteKeys(newsRemoteKeys = keys)
                         newsDao.addNews(aNews = news.articles.map {
+                            val to = SimpleDateFormat("dd.MM.yyyy HH:mm")
+                            val from = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
                             New(
                                 id = it.publishedAt.filter { it.isDigit() }.drop(8).toIntOrNull() ?: 0,
                                 overview = it.description,
                                 posterPath = it.urlToImage,
                                 title = it.title,
-                                releaseDate = it.publishedAt
+                                releaseDate = from.parse(it.publishedAt)?.let { to.format(it) }
                             )
                         })
                     }
