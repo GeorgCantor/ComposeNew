@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -37,8 +38,8 @@ fun HomeTopBar() {
         actions = {
             IconButton(onClick = { showMessage(context = context) }) {
                 Icon(
-                    imageVector = Icons.Default.Favorite,
-                    contentDescription = "Favorite",
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = "GitHub",
                     tint = Color.Blue
                 )
             }

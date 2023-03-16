@@ -14,7 +14,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import coil.size.Scale
-import com.example.compose.presentation.components.RatingComponent
 import com.example.compose.presentation.components.ReleaseDateComponent
 import com.example.compose.ui.theme.AppThemeColor
 import com.example.domain.model.New
@@ -50,8 +49,6 @@ fun NewsDetailsContent(aNew: New) {
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 aNew.releaseDate?.let { ReleaseDateComponent(releaseDate = it) }
-                Spacer(modifier = Modifier.height(8.dp))
-                RatingComponent(rating = "5")
                 Spacer(modifier = Modifier.height(16.dp))
                 aNew.overview?.let { Text(text = it, style = MaterialTheme.typography.body2) }
             }

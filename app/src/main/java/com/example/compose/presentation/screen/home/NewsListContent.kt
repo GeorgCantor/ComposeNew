@@ -18,7 +18,6 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.rememberImagePainter
 import coil.size.Scale
-import com.example.compose.presentation.components.RatingComponent
 import com.example.compose.presentation.navigation.Screen
 import com.example.compose.ui.theme.ItemBackgroundColor
 import com.example.domain.model.New
@@ -72,8 +71,6 @@ fun NewsItem(aNew: New, navController: NavHostController) {
                         overflow = TextOverflow.Ellipsis
                     )
                 }
-                Spacer(modifier = Modifier.height(8.dp))
-                RatingComponent(rating = "5")
             }
         }
     }
