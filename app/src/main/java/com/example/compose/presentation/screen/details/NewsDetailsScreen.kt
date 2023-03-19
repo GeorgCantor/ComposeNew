@@ -1,14 +1,15 @@
 package com.example.compose.presentation.screen.details
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.compose.ui.theme.AppContentColor
-import com.example.compose.ui.theme.AppThemeColor
+import com.example.compose.ui.theme.CollapsingToolbarTheme
 
 @Composable
 fun NewsDetailsScreen(
@@ -18,10 +19,11 @@ fun NewsDetailsScreen(
 ) {
     viewModel.getNewsDetails(id = id.toInt())
     val new by viewModel.selectedNew.collectAsState()
-    Scaffold(
-        topBar = { NewsDetailsTopBar(navController) },
-        contentColor = MaterialTheme.colors.AppContentColor,
-        backgroundColor = MaterialTheme.colors.AppThemeColor,
-        content = { new?.let { NewsDetailsContent(it) } }
-    )
+    CollapsingToolbarTheme {
+        Surface(
+            modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
+        ) {
+            new?.let { CollapsingToolbarDetails(it) }
+        }
+    }
 }
