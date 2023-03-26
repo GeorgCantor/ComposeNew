@@ -23,7 +23,7 @@ fun NewsDetailsScreen(
         Surface(
             modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
         ) {
-            new?.let { CollapsingToolbarDetails(it) }
+            new?.let { CollapsingToolbarDetails(it, navController) }
         }
     }
 }

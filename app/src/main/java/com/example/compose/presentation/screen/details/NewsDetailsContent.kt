@@ -23,7 +23,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -44,6 +44,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import coil.size.Scale
 import com.example.domain.model.New
@@ -57,7 +58,10 @@ private const val titleFontScaleStart = 1f
 private const val titleFontScaleEnd = 0.66f
 
 @Composable
-fun CollapsingToolbarDetails(aNew: New) {
+fun CollapsingToolbarDetails(
+    aNew: New,
+    navController: NavController?
+) {
     val scroll: ScrollState = rememberScrollState(0)
     val headerHeightPx = with(LocalDensity.current) { headerHeight.toPx() }
     val toolbarHeightPx = with(LocalDensity.current) { toolbarHeight.toPx() }
@@ -67,7 +71,7 @@ fun CollapsingToolbarDetails(aNew: New) {
     ) {
         Header(scroll, headerHeightPx, aNew.posterPath.orEmpty())
         Body(aNew.overview.orEmpty(), scroll)
-        Toolbar(scroll, headerHeightPx, toolbarHeightPx)
+        Toolbar(scroll, headerHeightPx, toolbarHeightPx, navController)
         Title(scroll, headerHeightPx, toolbarHeightPx, aNew.title.orEmpty())
     }
 }
@@ -128,7 +132,12 @@ private fun Body(overview: String, scroll: ScrollState) {
 }
 
 @Composable
-private fun Toolbar(scroll: ScrollState, headerHeightPx: Float, toolbarHeightPx: Float) {
+private fun Toolbar(
+    scroll: ScrollState,
+    headerHeightPx: Float,
+    toolbarHeightPx: Float,
+    navController: NavController?
+) {
     val toolbarBottom = headerHeightPx - toolbarHeightPx
     val showToolbar by remember {
         derivedStateOf {
@@ -144,18 +153,18 @@ private fun Toolbar(scroll: ScrollState, headerHeightPx: Float, toolbarHeightPx:
         TopAppBar(
             modifier = Modifier.background(
                 brush = Brush.horizontalGradient(
-                    listOf(Color(0xff026586), Color(0xff032C45))
+                    listOf(Color.DarkGray, Color.Black)
                 )
             ),
             navigationIcon = {
                 IconButton(
-                    onClick = {},
+                    onClick = { navController?.popBackStack() },
                     modifier = Modifier
                         .padding(16.dp)
                         .size(24.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Menu,
+                        imageVector = Icons.Default.ArrowBack,
                         contentDescription = "",
                         tint = Color.White
                     )
@@ -247,6 +256,7 @@ fun CollapsingToolbarDetailsPreview() {
             posterPath = "",
             title = "Title",
             releaseDate = "20.09.2020",
-        )
+        ),
+        navController = null
     )
 }
