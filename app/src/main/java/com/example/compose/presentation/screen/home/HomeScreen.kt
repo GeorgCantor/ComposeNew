@@ -1,11 +1,18 @@
 package com.example.compose.presentation.screen.home
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.compose.ui.theme.AppContentColor
 import com.example.compose.ui.theme.AppThemeColor
@@ -22,6 +29,20 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = hilt
         backgroundColor = MaterialTheme.colors.AppThemeColor,
         contentColor = MaterialTheme.colors.AppContentColor,
         topBar = { HomeTopBar() },
-        content = { NewsListContent(allNews = allNews, navController = navController) }
+        content = {
+            when (allNews.loadState.refresh) {
+                is LoadState.Error -> {}
+                is LoadState.Loading -> {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        CircularProgressIndicator(color = Color.Red)
+                    }
+                }
+                else -> {}
+            }
+            NewsListContent(allNews = allNews, navController = navController)
+        }
     )
 }
