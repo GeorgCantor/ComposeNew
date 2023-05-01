@@ -14,6 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.compose.R
 import com.example.compose.ui.theme.AppContentColor
 import com.example.compose.ui.theme.AppThemeColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -42,7 +43,11 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = hilt
                 }
                 else -> {}
             }
-            NewsListContent(allNews = allNews, navController = navController)
+            NewsListContent(
+                allNews = allNews,
+                navController = navController,
+                res = R.drawable.ic_launcher_background
+            )
         }
     )
 }

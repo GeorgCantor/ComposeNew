@@ -2,7 +2,15 @@ package com.example.compose.presentation.screen.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -27,17 +35,17 @@ import com.example.compose.ui.theme.ItemBackgroundColor
 import com.example.domain.model.New
 
 @Composable
-fun NewsListContent(allNews: LazyPagingItems<New>, navController: NavHostController) {
+fun NewsListContent(allNews: LazyPagingItems<New>, navController: NavHostController, res: Int) {
     LazyColumn(contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)) {
         items(
             items = allNews,
             key = { it.pk }
-        ) { new -> new?.let { NewsItem(aNew = new, navController = navController) } }
+        ) { new -> new?.let { NewsItem(aNew = new, navController = navController, res = res) } }
     }
 }
 
 @Composable
-fun NewsItem(aNew: New, navController: NavHostController?) {
+fun NewsItem(aNew: New, navController: NavHostController?, res: Int?) {
     Card(
         modifier = Modifier
             .padding(top = 8.dp)
@@ -66,7 +74,9 @@ fun NewsItem(aNew: New, navController: NavHostController?) {
                         data = aNew.posterPath, builder = {
                             crossfade(true)
                             scale(Scale.FILL)
-                        }),
+                            res?.let { placeholder(it) }
+                        }
+                    ),
                     contentDescription = null,
                     contentScale = ContentScale.Crop
                 )
@@ -110,6 +120,8 @@ fun NewsItemPreview() {
             posterPath = "",
             title = "Title",
             releaseDate = "20.09.2020",
-        ), navController = null
+        ),
+        navController = null,
+        res = null
     )
 }
